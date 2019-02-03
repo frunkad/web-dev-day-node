@@ -3,33 +3,56 @@
     
     <head>
         <!-- [TODO 1] place the title here from the context being passed -->
+        <title>
+                <%= title %>
+        </title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     </head>
     <body>
         
-        <h1>GDG Event Manager</h1>
 
         <!-- [READ] this is a form which is used to submit the data for an event -->
         
-        <div>
+        <div class="container">
+        <h1>GDG Event Manager</h1>
+
             <!-- [TODO 2] add url to submit the form data -->
-            <form action="" method="POST">
-                <fieldset>
-                    <input type="text" name="title" placeholder="Event Name">
+            <form action="/events/create" method="POST">
+                <fieldset class="my-1">
+                    <input class="form-control" type="text" name="title" placeholder="Event Name">
                 </fieldset>
-                <fieldset>
-                    <textarea name="description" placeholder="Event Description"></textarea>
+                <fieldset class="my-1">
+                    <textarea class="form-control" name="description" placeholder="Event Description"></textarea>
                 </fieldset>
-                <fieldset>
-                    <input type="datetime-local" name="date">
+                <fieldset class="my-1">
+                    <input class="form-control" type="datetime-local" name="date">
                 </fieldset>
-                <input type="submit" value="Create Event">
+                <input class="btn btn-primary" type="submit" value="Create Event">
             </form>
         </div>
 
 
 
         <!-- [TODO 3] display the list of events here by looping on the data sent from MongoDB -->
-        
+        <div id="events-list-container">
+                <ul>
+                    <% for (event of events){ %>
+                    
+                        <li>
+                            <div>
+                                <h3><%= event.title %></h3>
+                                <% if (event.date){ %>
+                                <p><%= event.date.toLocaleString() %></p>
+                                <%}%>
+                                <%= event.registrations.length %> Registrations
+                                <p><%= event.description %></p>
+                            </div>
+                        </li>
+                        
+                    <% } %>
+                </ul>
+            </div>
+            
     </body>
 
 
